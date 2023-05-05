@@ -21,8 +21,10 @@ $smarty->setCompileDir( ROOT . '/templates_c/');
 $smarty->setConfigDir( ROOT . '/configs/');
 $smarty->setCacheDir( ROOT . '/cache/');
 
+R::setup( 'mysql:host=localhost;dbname=fermula', 'root', '' );
+
 # Создание переменных
-$smarty->assign('is_logged', true);
+$smarty->assign('is_logged', false);
 $smarty->assign('page', $_GET['page']);
 $smarty->assign('page_name', 'Личный кабинет');
 
