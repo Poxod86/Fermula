@@ -21,4 +21,11 @@ $smarty->setCompileDir( ROOT . '/templates_c/');
 $smarty->setConfigDir( ROOT . '/configs/');
 $smarty->setCacheDir( ROOT . '/cache/');
 
+# Создание переменных
+$smarty->assign('is_logged', true);
+$smarty->assign('page', $_GET['page']);
+$smarty->assign('page_name', 'Личный кабинет');
+
+// die(print_r($_GET));
+
 ?>
