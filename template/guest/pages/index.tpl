@@ -1,9 +1,9 @@
 <div class="row">
             <div class="col-6">
-                <button class="buttons-primary w-100"><span>Начать игру</span></button>
+                <a href="/?page=register" class="buttons-primary w-100"><span>Начать игру</span></a>
             </div>
             <div class="col-6">
-                <button class="buttons-light w-100"><span>Вход</span></button>
+                <a href="/?page=auth" class="buttons-light w-100"><span>Вход</span></a>
             </div>
         </div>
 

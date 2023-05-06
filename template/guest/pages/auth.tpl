@@ -1,9 +1,10 @@
-<form action>
-           <input type="text" class="inputs d-block mx-auto w-75" placeholder="Логин">
-           <input type="email" class="inputs d-block mx-auto w-75" placeholder="Почта">
-           <input type="password" class="inputs d-block mx-auto w-75" placeholder="Пароль">
+<form action data-operation="authorisation">
+           <input name="login" type="text" class="inputs d-block mx-auto w-75" placeholder="Введите Ваш Логин">
+           
+           <input name="password" type="password" class="inputs d-block mx-auto w-75" placeholder="Введите Ваш Пароль">
+           <input  type="button" class="buttons-primary w-75 mt d-block mx-auto" value="Войти">
         <p class="text-center text-desc">
-            Нажимая кнопка “Зарегистрироваться”, вы подтверждаете <a href="#" class="links">политику конфинденциальности</a>
+            Если у Вас нет игрового аккаунта, Вы можете <a href="/?page=register" class="links">зарегистрироваться</a>
         </p>
         <button class="buttons-primary w-75 mt d-block mx-auto"><span>Зарегистрироваться</span></button>
-        </form>
+ </form>

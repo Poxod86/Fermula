@@ -1,8 +1,14 @@
 <main id="main" class="main">
-{if isset($page)}
-  {include file="user/pages/$page.tpl"}
-{else}
-  {include file="user/pages/profile.tpl"}
-{/if}
+{assign var='page_file' value='template/user/pages/'|cat:$page|cat:".tpl"} 
+      
+      {if empty($page)}
+            {include file="user/pages/menu.tpl"}
+      {else}
+            {if file_exists($page_file)}
+              {include file="user/pages/$page.tpl"}
+            {else}
+              {include file="errors/404.tpl"}
+            {/if}
+      {/if}
 
 </main>

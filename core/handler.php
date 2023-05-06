@@ -7,8 +7,8 @@ $post = $_POST;
 
 if ($post) {
   switch ($post['operation']) {
+# Метод регистрации пользователя
     case 'register':
-   
       if(
         empty($post['login']) || 
         empty($post['email']) ||
@@ -29,6 +29,29 @@ if ($post) {
       userRegister($post['login'], $post['email'], $post['password']);
       sendResponse('success','Регистрация успешна');
        break;
+
+# Метод авторизации пользователя
+       case 'authorisation':
+        if(
+          empty($post['login']) || 
+          empty($post['password']) 
+          )
+          sendResponse('error','Пожалуйста заполните все поля');
+          $user = R::findOne('users','login = ?', array($post['login']));
+          if (!$user) sendResponse('error','Данного пользователя не существует');
+          if (password_verify($post['password'], $user-> password)){
+           $_SESSION['logged_user'] = $user;
+          } else {
+            sendResponse('error','Пароль не верен, проверьте еще раз');
+          }
+          sendResponse('success','Вы успешно вошли в игру');
+         break;
+
+# Метод выхода из игры пользователя
+case 'logout':
+    unset($_SESSION['logged_user']);
+    sendResponse('success','Вы вышли из Игры');
+   break;
     default:
     break;
   }

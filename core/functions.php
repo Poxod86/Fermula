@@ -26,4 +26,12 @@ function userRegister( $login, $email, $pass ){
  $user = R::store($user);
 }
 
+function checkLogged() {
+if ($_SESSION['logged_user']) {
+ return true;
+} else {
+  return false;
+}
+}
+
 ?>

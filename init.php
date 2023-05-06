@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 # Объявление констант
 define( 'ROOT', $_SERVER['DOCUMENT_ROOT'] );
 define( 'CORE_DIR', ROOT . '/core' );
@@ -24,10 +24,10 @@ $smarty->setCacheDir( ROOT . '/cache/');
 R::setup( 'mysql:host=localhost;dbname=fermula', 'root', '' );
 
 # Создание переменных
-$smarty->assign('is_logged', false);
+$smarty->assign('is_logged', checkLogged());
 $smarty->assign('page', $_GET['page']);
 $smarty->assign('page_name', 'Личный кабинет');
 
-// die(print_r($_GET));
+ //die(print_r($_SESSION));
 
 ?>

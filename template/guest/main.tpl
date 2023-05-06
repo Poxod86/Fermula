@@ -9,11 +9,17 @@
 </header>
 
     <main id="main" class="main">
-      {if isset($page)}
-      {include file="guest/pages/$page.tpl"}
-{else}
-  {include file="guest/pages/index.tpl"}
-{/if} 
+      {assign var='page_file' value='template/guest/pages/'|cat:$page|cat:".tpl"} 
+      
+      {if empty($page)}
+            {include file="guest/pages/index.tpl"}
+      {else}
+            {if file_exists($page_file)}
+              {include file="guest/pages/$page.tpl"}
+            {else}
+              {include file="errors/404.tpl"}
+            {/if}
+      {/if}
     </main>
 
     <footer id="footer" class="footer">
