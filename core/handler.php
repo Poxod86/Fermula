@@ -27,7 +27,11 @@ if ($post) {
       sendResponse('error','Пользователь с таким Email уже зарегистрирован');
 
       userRegister($post['login'], $post['email'], $post['password']);
-      sendResponse('success','Регистрация успешна');
+
+      $fields = [
+        'redirect' => '/'
+      ];
+      sendResponse('success','Регистрация успешна',$fields);
        break;
 
 # Метод авторизации пользователя
@@ -40,17 +44,24 @@ if ($post) {
           $user = R::findOne('users','login = ?', array($post['login']));
           if (!$user) sendResponse('error','Данного пользователя не существует');
           if (password_verify($post['password'], $user-> password)){
-           $_SESSION['logged_user'] = $user;
+           $_SESSION['logged_user'] = $user->export();
           } else {
             sendResponse('error','Пароль не верен, проверьте еще раз');
           }
-          sendResponse('success','Вы успешно вошли в игру');
+          $fields = [
+            'redirect' => '/'
+          ];
+
+          sendResponse('success','Вы успешно вошли в игру',$fields);
          break;
 
 # Метод выхода из игры пользователя
 case 'logout':
     unset($_SESSION['logged_user']);
-    sendResponse('success','Вы вышли из Игры');
+    $fields = [
+      'redirect' => '/'
+    ];
+    sendResponse('success','Вы вышли из Игры', $fields);
    break;
     default:
     break;

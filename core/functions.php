@@ -14,6 +14,9 @@ function userRegister( $login, $email, $pass ){
  $user ->email = $email;
 
  $user ->group = 1;
+ $user ->lvl = 1;
+ $user ->exp = 0;
+ $user ->balance = 100;
  $user ->avatar = "default.png";
  $user ->last_ip = $_SERVER['REMOTE_ADDR'];
  $user ->is_active = 1;

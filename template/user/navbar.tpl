@@ -3,11 +3,11 @@
         <div class="navbar-info">
             <div class="navbar-balance">
                 <img src="template/assets/images/icons/coin.png" alt="coin">
-                <span>350</span>
+                <span>{$user.balance}</span>
             </div>
             <div class="navbar-energy">
                 <img src="template/assets/images/icons/lightning.png" alt="lightning">
-                <span>350</span>
+                <span>{$user.lvl}</span>
             </div>
         </div>
     </nav>

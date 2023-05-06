@@ -21,13 +21,21 @@ $smarty->setCompileDir( ROOT . '/templates_c/');
 $smarty->setConfigDir( ROOT . '/configs/');
 $smarty->setCacheDir( ROOT . '/cache/');
 
-R::setup( 'mysql:host=localhost;dbname=fermula', 'root', '' );
+R::setup( "mysql:host={$config['data']['host']};dbname={$config['data']['name']}", $config['data']['user'], $config['data']['rassword'] );
+if(!R::testConnection()) die('Ошибка подключения к базе данных');
 
 # Создание переменных
 $smarty->assign('is_logged', checkLogged());
 $smarty->assign('page', $_GET['page']);
 $smarty->assign('page_name', 'Личный кабинет');
 
- //die(print_r($_SESSION));
+if (checkLogged()) {
+  $user = R::load('users', $_SESSION['logged_user']['id']);
+  $smarty->assign('user', $user);
+};
+
+// echo "<pre>";
+// die(print_r($user));
+// echo "</pre>";
 
 ?>

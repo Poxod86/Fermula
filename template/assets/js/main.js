@@ -29,24 +29,49 @@ function sendAjax(element) {
 
     success: function (data) {
       var data = JSON.parse(data);
-
-      switch(data.type) {
-        case 'success':
-          alert(data.message);
-        break;
-        case 'error':
-          alert(data.message);
-        break;
-        default:
-          alert("Сервер вернул ошибку обратитесь к системному администатору");
-          break;
+      if(data.redirect) {
+        window.location.replace(data.redirect);
+      } else {
+        notyf.open({
+          type: data.type,
+          message: data.message
+        });
       }
-     console.log(data);
     }
   })
-  
 }
 
 $('input[type=button]').on('click', function(){
   var response = sendAjax(this);
 });
+
+const notyf = new Notyf({
+  duration: 3000,
+  position: {
+   x: 'right',
+   y: 'top'
+  },
+
+  types: [
+    {
+      type: 'info',
+      background: 'darkorange',
+      icon: false,
+      dismissible: true
+    },
+    {
+      type: 'error',
+      background: 'tomato',
+      icon: false,
+      dismissible: true
+    },
+    {
+      type: 'success',
+      background: 'mediumseagreen',
+      icon: false,
+      dismissible: true
+    }
+    
+  ]
+});
+
