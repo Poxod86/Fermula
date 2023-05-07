@@ -7,7 +7,11 @@
             </div>
             <div class="navbar-energy">
                 <img src="template/assets/images/icons/lightning.png" alt="lightning">
-                <span>{$user.lvl}</span>
+                <span>50/100</span>
+            </div>
+
+            <div class="navbar-level">
+                <span>Уровень: {$user.lvl}</span>
             </div>
         </div>
     </nav>

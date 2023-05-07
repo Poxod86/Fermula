@@ -30,11 +30,38 @@ function userRegister( $login, $email, $pass ){
 }
 
 function checkLogged() {
-if ($_SESSION['logged_user']) {
- return true;
-} else {
-  return false;
+  if ($_SESSION['logged_user']) {
+    return true;
+  } else {
+    return false;
+  }
 }
+
+function getExpToNextLevel($user_id){
+  $query = R::getRow("SELECT `levels`.`exp_to_lvl` FROM levels 
+    JOIN `users` ON `users`.`lvl` = `levels`.`lvl` WHERE `users`.`id` = {$user_id}");
+    return $query['exp_to_lvl'];
+}
+
+function getExpToHereLevel($user_exp, $user_lvl){
+  $query = R::getRow("SELECT {$user_exp} - exp_total FROM levels WHERE lvl = {$user_lvl}");
+    return $query["{$user_exp} - exp_total"];
+};
+
+function getLevelPercent($user_id, $user_exp, $user_lvl)
+{
+    $percent = getExpToHereLevel($user_exp, $user_lvl) / getExpToNextLevel($user_id) * 100;
+    return round($percent);
+};
+
+function updateUserLevel($user_exp, $user_id) {
+  $query = R::getRow("SELECT MAX(lvl) FROM `levels` WHERE exp_total <= {$user_exp}");
+    R::exec('UPDATE `users` SET `lvl` = :lvl WHERE id = :id', [
+      'id' => $user_id,
+      'lvl' => $query['MAX(lvl)']
+  ]);
+  $user = R::load('users', $user_id);
+  return $user;
 }
 
 ?>

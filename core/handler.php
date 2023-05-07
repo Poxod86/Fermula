@@ -29,7 +29,7 @@ if ($post) {
       userRegister($post['login'], $post['email'], $post['password']);
 
       $fields = [
-        'redirect' => '/'
+        'redirect' => '/?page=auth'
       ];
       sendResponse('success','Регистрация успешна',$fields);
        break;

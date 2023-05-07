@@ -31,7 +31,9 @@ $smarty->assign('page_name', 'Личный кабинет');
 
 if (checkLogged()) {
   $user = R::load('users', $_SESSION['logged_user']['id']);
+  $user = updateUserLevel($user->exp, $user->id);
   $smarty->assign('user', $user);
+  $smarty->assign('user_lvl_progress', getLevelPercent($user->id, $user->exp, $user->lvl));
 };
 
 // echo "<pre>";

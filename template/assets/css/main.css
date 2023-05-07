@@ -64,7 +64,8 @@ body {
 }
 
 .navbar-balance,
-.navbar-energy {
+.navbar-energy,
+.navbar-level {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -75,7 +76,8 @@ body {
 }
 
 .navbar-balance span,
-.navbar-energy span {
+.navbar-energy span, 
+.navbar-level span {
     font-family: 'TT Norms Bold';
     font-size: 12px;
 }
