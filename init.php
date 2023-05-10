@@ -21,9 +21,12 @@ $smarty->setCompileDir( ROOT . '/templates_c/');
 $smarty->setConfigDir( ROOT . '/configs/');
 $smarty->setCacheDir( ROOT . '/cache/');
 
-R::setup( "mysql:host={$config['data']['host']};dbname={$config['data']['name']}", $config['data']['user'], $config['data']['rassword'] );
-if(!R::testConnection()) die('Ошибка подключения к базе данных');
+R::setup( "mysql:host={$config['data']['host']};dbname={$config['data']['name']}", $config['data']['user'], $config['data']['password'] );
 
+R::ext('xdispense', function( $type ){
+  return R::getRedBean()->dispense( $type );
+});
+if(!R::testConnection()) die('Ошибка подключения к базе данных');
 # Создание переменных
 $smarty->assign('is_logged', checkLogged());
 $smarty->assign('page', $_GET['page']);
@@ -34,6 +37,7 @@ if (checkLogged()) {
   $user = updateUserLevel($user->exp, $user->id);
   $smarty->assign('user', $user);
   $smarty->assign('user_lvl_progress', getLevelPercent($user->id, $user->exp, $user->lvl));
+  $smarty->assign('user_tower_list', getTowers ($user->lvl));
 };
 
 // echo "<pre>";

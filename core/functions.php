@@ -64,4 +64,17 @@ function updateUserLevel($user_exp, $user_id) {
   return $user;
 }
 
+function getTowers($user_lvl){
+  $towers = R::getAll("SELECT * FROM `towers` WHERE `lvl` <= ?", [$user_lvl]);
+  return $towers;
+}
+
+function setLogs($user_id, $desc) {
+  $logs = R::dispense('logs');
+  $logs->u_id = $user_id;
+  $logs->description = $desc;
+  $logs->time = time();
+  R::store($logs);
+}
+
 ?>

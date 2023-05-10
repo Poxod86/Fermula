@@ -63,6 +63,35 @@ case 'logout':
     ];
     sendResponse('success','Вы вышли из Игры', $fields);
    break;
+
+# Покупка зданий
+case 'buy_tower':
+  $user = $user->export();
+  $tower = R::getRow('SELECT * FROM `towers` WHERE id = :id', [
+    'id'=>$post['tower']
+  ]);
+
+  $user_tower = R::count('tower_cart', 't_id = ?', [$post['tower']] );
+
+  if($user_tower > 0) sendResponse('error','Здание уже приобретено!');
+  if(!$tower) sendResponse('error','Ошибка получения данных о здании <br> Пожалуйста обновите страницу');
+  if ($user['balance'] < $tower['price']) sendResponse('error','На вашем счету недостаточно средств для покупки!');
+  
+  setLogs($user['id'],"Покупка здания \"{$tower['name']} \" за {$tower['price']} монет");
+  R::exec("UPDATE `users` SET `balance` =`balance` -:price WHERE `id` = :id", [
+    'id'=>$user['id'],
+    'price'=>$tower['price'],
+  ]);
+
+  $tower_cart = R::xdispense('tower_cart');
+  $tower_cart->u_id = $user['id'];
+  $tower_cart->t_id = $tower['id'];
+  $tower_cart->time = time();
+  R::store($tower_cart);
+
+  sendResponse('success','Вы успешно приобрели здание!');
+ break;
+
     default:
     break;
   }
